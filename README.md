@@ -1,5 +1,4 @@
-# Svelte + TS + Tailwind
-
+# Staff Openhouse Carnival
 This template help get you started developing with Svelte + TS + TailwindCSS and Routing.
 
 ### This Repo Provided
