@@ -1,16 +1,23 @@
 <script lang="ts">
+  import snorlaxRed from "/images/snorlax-red.png";
+
   let email: any = "";
   let password: any = "";
   const handleLogin = () => {};
 </script>
 
-<div class="flex flex-col items-center justify-center">
+<div class="flex flex-col items-center justify-center p-6">
+  <div class="flex justify-center place-content-center">
+    <img src={snorlaxRed} class="max-w-xs" alt="" />
+  </div>
   <div class="flex-grow">
     <div class="flex items-center justify-center">
       <div
         class="px-8 py-6 mt-4 text-left bg-white rounded-xl border-2 border-black shadow-lg"
       >
-        <h3 class="text-2xl font-bold text-center text-red-600 mt-2">Staff Login</h3>
+        <h3 class="text-2xl font-bold text-center text-red-600 mt-2">
+          Staff Login
+        </h3>
         <form action="">
           <div class="mt-4">
             <div>
