@@ -2,18 +2,19 @@
   import { Axios } from "@/lib/Axios";
   import { User } from "@/stores/User";
   import QrCode from "svelte-qrcode";
+    import Event from "./event.svelte";
 
   let showQr = false;
   let qrShortCode = "";
 
-  const genQr = async () => {
-    showQr = true;
+//   const genQr = async () => {
+//     showQr = true;
 
-    const response = await Axios.post("/api/qr");
-    if (response.status === 200) {
-      qrShortCode = response.data.shortCode;
-    }
-  };
+//     const response = await Axios.post("/api/qr");
+//     if (response.status === 200) {
+//       qrShortCode = response.data.shortCode;
+//     }
+//   };
 
   const handleLogout = async () => {
     await Axios.post("/api/staff/logout");
@@ -26,7 +27,7 @@
   <div class="text-center">
     <p class="bg-red-600 text-xl text-white py-2">
       Login as
-      <span class="ml-2 text-gray-100 font-bold"> {$User.username} </span>
+      <span class="ml-2 text-gray-100 font-bold"> {$User.username } </span>
       <button
         on:click={handleLogout}
         class="bg-red-500 p-2 m-4 text-white rounded-lg"
@@ -36,8 +37,10 @@
     </p>
   </div>
 
+  <Event />
+
   <!-- Create QR -->
-  <div class="flex justify-center">
+  <!-- <div class="flex justify-center">
     <input
       type="text"
       placeholder="Qr"
@@ -54,5 +57,5 @@
   </div>
   {#if showQr}
     <QrCode value={qrShortCode} />
-  {/if}
+  {/if} -->
 </div>
