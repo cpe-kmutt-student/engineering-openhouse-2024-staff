@@ -26,7 +26,7 @@
   <div class="text-center">
     <p class="bg-red-600 text-xl text-white py-2">
       Login as
-      <span class="ml-2 text-gray-100 font-bold"> {$User.user_name} </span>
+      <span class="ml-2 text-gray-100 font-bold"> {$User.username} </span>
       <button
         on:click={handleLogout}
         class="bg-red-500 p-2 m-4 text-white rounded-lg"
