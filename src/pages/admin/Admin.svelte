@@ -1,5 +1,5 @@
 <script>
-  import ListTableEvent from "@/components/Admin/ListTableEvent.svelte";
+  import ListTableEvent from "@/components/ListTableEvent.svelte";
   import { Axios } from "@/lib/Axios";
   import { onMount } from "svelte";
   import { Link } from "svelte-routing";
