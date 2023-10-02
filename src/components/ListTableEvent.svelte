@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { EventResponse } from "@/types/Event"
+  import type { EventResponse } from "@/types/Response"
   import { Link } from "svelte-routing"
 
   export let events: EventResponse[] = []
@@ -20,7 +20,7 @@
         <tr class="text-center">
           <td class="border p-3">{event.detail}</td>
           <td class="border p-3 text-red-600 font-bold underline">
-            <Link to={"/event/" + event.id}>เลือก</Link>
+            <Link to={"/event/" + event.id + "/" + event.detail}>เลือก</Link>
           </td>
         </tr>
       {/each}

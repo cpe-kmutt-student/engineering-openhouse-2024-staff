@@ -2,8 +2,9 @@
   import { Axios } from "@/lib/Axios"
   import { User } from "@/stores/User"
   import { onMount } from "svelte"
-  import type { EventResponse } from "@/types/Event"
+  import type { EventResponse } from "@/types/Response"
   import ListTableEvent from "./ListTableEvent.svelte"
+  import { Link } from "svelte-routing"
   let events: EventResponse[] = []
 
   onMount(async () => {
@@ -31,11 +32,17 @@
       Login as
       <span class="ml-2 text-gray-100 font-bold"> {$User.username} </span>
       <button on:click={handleLogout} class="bg-red-500 p-2 m-4 text-white rounded-lg"> Logout </button>
+      <br />
+      <span>Department : <span class="font-bold">{$User.department_name}</span> </span>
     </p>
   </div>
   <!-- Table -->
-  <div class="flex justify-center">
-    {#if events.length > 1}
+  <div class="flex justify-center mt-6">
+    {#if events.length === 1}
+      <Link to={"/event/" + events[0].id + "/" + events[0].detail}
+        ><button class="btn-dark">สร้าง Qr Code ➡</button></Link
+      >
+    {:else if events.length > 1}
       <ListTableEvent {events} />
     {:else}
       <h1>Nothing</h1>

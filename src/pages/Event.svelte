@@ -3,16 +3,22 @@
   import { onMount } from "svelte"
   import { User } from "@/stores/User"
   import QrCode from "svelte-qrcode"
-
+  import { navigate } from "svelte-routing"
+  import arrowBack from "/arrow-back.svg"
+  //query params
   export let id
+  export let eventName
 
   let qrText = ""
-  const frontUrl = import.meta.env.VITE_FRONTEND_URL || "http://localhost:3000"
+  let shortCode = ""
+  const frontendUrl = import.meta.env.VITE_FRONTEND_URL || "http://localhost:3000"
 
   const getQrcode = async () => {
     const res = await Axios.post("/api/qrcode", { event_id: id })
     if (res.data.data) {
       qrText = res.data.data.id || ""
+      shortCode = res.data.data.short_code
+      console.log(res.data.data)
     }
   }
 
@@ -20,26 +26,41 @@
     if (!$User) {
       window.location.pathname = "/"
     }
-    getQrcode()
+    await getQrcode()
+    intervalCheckExpired
   })
-  // TODO : Check interval to check expired
-  const intervalCheckExpired = () => {}
 
-  const genQR = async () => {
-    const res = await Axios.post("/api/qrcode/create", { event_id: id })
+  const intervalCheckExpired = setInterval(async () => {
+    await getQrcode()
+    if (qrText == "") window.location.pathname = "/"
+  }, 60000) // 60 sec
+
+  const createQR = async () => {
+    await Axios.post("/api/qrcode/create", { event_id: id })
 
     await getQrcode()
   }
 </script>
 
 <div>
+  <!-- Header -->
+  <div class="p-4 flex items-center">
+    <button on:click={() => navigate("/")} class="">
+      <img src={arrowBack} class="w-8 h-8 stroke-navy filter" alt="" />
+    </button>
+    <span class="flex justify-center w-full mr-8">
+      <h1 class="text-center text-xl md:text-2xl font-bold">{eventName}</h1>
+    </span>
+  </div>
   <div class="flex justify-center">
     {#if qrText == ""}
-      <button on:click={genQR} class="btn-dark"> สร้าง Qr Code </button>
+      <button on:click={createQR} class="btn-dark"> สร้าง Qr Code </button>
     {/if}
   </div>
-  <h1>{qrText}</h1>
   {#if qrText}
-    <QrCode value={frontUrl + "/stamp?code=" + qrText} />
+    <div class="flex flex-col justify-center">
+      <QrCode value={frontendUrl + "/profile/stamp?code=" + qrText} color="#dc2626" />
+      <h1 class="text-center text-2xl">{shortCode}</h1>
+    </div>
   {/if}
 </div>

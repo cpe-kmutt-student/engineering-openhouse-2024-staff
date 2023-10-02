@@ -7,7 +7,6 @@
   import { Axios } from "@/lib/Axios"
 
   onMount(async () => {
-    // $User = { id: "sd", user_name: "asdas", department_id: 1 };
     try {
       const response = await Axios.get("/api/staff")
       if (response.status === 200) {
