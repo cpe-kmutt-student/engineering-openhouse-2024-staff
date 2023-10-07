@@ -40,12 +40,16 @@
 
     await getQrcode()
   }
+  const goBack = async () => {
+    await Axios.patch("/api/qrcode", { id: id, status: false }) //disable qr
+    navigate("/")
+  }
 </script>
 
 <div>
   <!-- Header -->
   <div class="p-4 flex items-center">
-    <button on:click={() => navigate("/")} class="">
+    <button on:click={goBack} class="">
       <img src={arrowBack} class="w-8 h-8 stroke-navy filter" alt="" />
     </button>
     <span class="flex justify-center w-full mr-8">
@@ -59,7 +63,10 @@
   </div>
   {#if qrText}
     <div class="flex flex-col justify-center">
-      <QrCode value={frontendUrl + "/profile/stamp?code=" + qrText} color="#dc2626" />
+      <div>
+        <QrCode value={frontendUrl + "/profile/stamp?code=" + qrText} />
+      </div>
+      <p>{frontendUrl + "/profile/stamp?code=" + qrText}</p>
       <h1 class="text-center text-2xl">{shortCode}</h1>
     </div>
   {/if}
