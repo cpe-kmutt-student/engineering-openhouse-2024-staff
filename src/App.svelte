@@ -14,7 +14,7 @@
       const response = await Axios.get("/api/staff")
       if (response.status === 200) {
         $User = response.data.data
-        console.log("user", response.data.data)
+        // console.log("user", response.data.data)
       }
     } catch (error) {
       console.log(error)

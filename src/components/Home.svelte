@@ -12,7 +12,7 @@
       const response = await Axios.get("/api/event")
       if (response.status === 200) {
         events = response.data.data
-        console.log(events)
+        // console.log(events)
       }
     } catch (error) {
       console.log(error)
