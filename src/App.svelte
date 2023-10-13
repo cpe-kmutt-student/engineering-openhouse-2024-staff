@@ -7,6 +7,7 @@
   import { onMount } from "svelte"
   import { User } from "./stores/User"
   import { Axios } from "./lib/Axios"
+  import Reward from "./pages/Reward.svelte"
   export let url = ""
 
   onMount(async () => {
@@ -26,6 +27,7 @@
   <main>
     <Route path="/" component={Home} />
     <Route path="/about" component={About} />
+    <Route path="/reward" component={Reward} />
     <Route path="/event/:id/:eventName" component={Event} />
     <!-- <Route path="/admin" component={Admin} />
     <Route path="/admin/create" component={AdminCreate} /> -->

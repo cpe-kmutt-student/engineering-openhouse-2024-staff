@@ -12,7 +12,7 @@
       const response = await Axios.get("/api/event")
       if (response.status === 200) {
         events = response.data.data
-        // console.log(events)
+        console.log(events)
       }
     } catch (error) {
       console.log(error)
@@ -37,8 +37,14 @@
     </p>
   </div>
   <!-- Table -->
-  <div class="flex justify-center mt-6">
-    {#if events.length === 1}
+  <div class="flex flex-col justify-center items-center mt-6">
+    {#if events.length === 1 && events[0].department_name === "Central"}
+      <Link to={"/event/" + events[0].id + "/" + events[0].detail}
+        ><button class="btn-dark">สร้าง Qr Code ➡</button></Link
+      >
+      <br />
+      <Link to={"/reward"}><button class="btn-dark">หน้ารับรางวัล✨ ➡</button></Link>
+    {:else if events.length === 1}
       <Link to={"/event/" + events[0].id + "/" + events[0].detail}
         ><button class="btn-dark">สร้าง Qr Code ➡</button></Link
       >
