@@ -5,12 +5,14 @@
   import QrCode from "svelte-qrcode"
   import { navigate } from "svelte-routing"
   import arrowBack from "/arrow-back.svg"
+  import Timer from "@/components/Timer.svelte"
   //query params
   export let id
   export let eventName
 
   let qrId = ""
   let shortCode = ""
+  let isTimeOut = false
   const frontendUrl = import.meta.env.VITE_FRONTEND_URL || "http://localhost:3000"
 
   const getQrcode = async () => {
@@ -22,6 +24,7 @@
     }
   }
 
+  $: if (isTimeOut) goBack()
   onMount(async () => {
     if (!$User) {
       window.location.pathname = "/"
@@ -40,6 +43,12 @@
 
     await getQrcode()
   }
+
+  const disableQR = async () => {
+    await Axios.patch("/api/qrcode", { id: qrId, status: false }) //disable qr
+    qrId = ""
+  }
+
   const goBack = async () => {
     if (qrId) {
       await Axios.patch("/api/qrcode", { id: qrId, status: false }) //disable qr
@@ -55,7 +64,7 @@
       <img src={arrowBack} class="w-8 h-8 stroke-navy filter" alt="" />
     </button>
     <span class="flex justify-center w-full mr-8">
-      <h1 class="text-center text-xl md:text-2xl font-bold">{eventName}</h1>
+      <h1 class="text-center text-xl md:text-2xl font-bold">🎡{eventName}🎪</h1>
     </span>
   </div>
   <div class="flex justify-center">
@@ -64,11 +73,13 @@
     {/if}
   </div>
   {#if qrId}
-    <div class="flex flex-col justify-center">
+    <div class="flex flex-col justify-center items-center">
       <div class="flex justify-center">
         <QrCode value={frontendUrl + "/profile/stamp?code=" + qrId} size="350" />
       </div>
       <h1 class="text-center text-2xl">{shortCode}</h1>
+      <Timer bind:isTimeOut />
+      <button on:click={disableQR} class="btn-dark mt-6"> ❌ปิด Qr Code </button>
     </div>
   {/if}
 </div>

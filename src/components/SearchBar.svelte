@@ -12,6 +12,7 @@
       class="block w-full p-3 pl-4 text-sm text-gray-900 border border-black focus:border-black focus:ring-black rounded-lg bg-gray-50"
       placeholder="เบอร์โทรศัพท์"
       bind:value={search}
+      maxlength="10"
       required
     />
     <button type="submit" class="btn-dark inline-flex ml-2"> ค้นหา </button>

@@ -1,7 +1,7 @@
 export type UserResponse = {
     id: string;
     username: string;
-    department_name: number;
+    department_name: string;
 }
 
 export type EventResponse = {

@@ -3,7 +3,7 @@
   import { Link } from "svelte-routing"
 
   export let events: EventResponse[] = []
-  console.log(events)
+  // console.log(events)
 </script>
 
 <div>
