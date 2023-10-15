@@ -36,7 +36,7 @@
   const intervalCheckExpired = setInterval(async () => {
     await getQrcode()
     if (qrId == "") window.location.pathname = "/"
-  }, 60000) // 60 sec
+  }, 30000) // 30 sec
 
   const createQR = async () => {
     await Axios.post("/api/qrcode/create", { event_id: id })
@@ -50,9 +50,6 @@
   }
 
   const goBack = async () => {
-    if (qrId) {
-      await Axios.patch("/api/qrcode", { id: qrId, status: false }) //disable qr
-    }
     navigate("/")
   }
 </script>
