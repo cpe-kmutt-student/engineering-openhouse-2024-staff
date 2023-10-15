@@ -11,7 +11,7 @@
   onMount(async () => {
     const adminPass = localStorage.getItem("adminPass")
     if (!adminPass) navigate("/")
-    
+
     try {
       const response = await Axios.post("/api/event/getall", {
         adminPass: adminPass,
@@ -21,6 +21,7 @@
       }
     } catch (error) {
       toast.error("รหัสผ่านผิด")
+      localStorage.removeItem("adminPass")
       navigate("/")
     }
   })
