@@ -5,6 +5,7 @@
   import type { EventResponse } from "@/types/Response"
   import ListTableEvent from "./ListTableEvent.svelte"
   import { Link } from "svelte-routing"
+  import AdminPassModal from "./AdminPassModal.svelte"
   let events: EventResponse[] = []
 
   onMount(async () => {
@@ -44,6 +45,8 @@
       >
       <br />
       <Link to={"/reward"}><button class="btn-dark">หน้ารับรางวัล✨ ➡</button></Link>
+      <br />
+      <AdminPassModal />
     {:else if events.length === 1}
       <Link to={"/event/" + events[0].id + "/" + events[0].detail}
         ><button class="btn-dark">สร้าง Qr Code ➡</button></Link

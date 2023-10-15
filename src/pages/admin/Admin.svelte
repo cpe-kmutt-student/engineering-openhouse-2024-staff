@@ -1,25 +1,36 @@
-<script>
-  import ListTableEvent from "@/components/ListTableEvent.svelte";
-  import { Axios } from "@/lib/Axios";
-  import { onMount } from "svelte";
-  import { Link } from "svelte-routing";
+<script lang="ts">
+  import ListTableEvent from "@/components/ListTableEvent.svelte"
+  import { Axios } from "@/lib/Axios"
+  import type { EventResponse } from "@/types/Response"
+  import { onMount } from "svelte"
+  import toast from "svelte-french-toast"
+  import { Link, navigate } from "svelte-routing"
 
-  let events = [];
+  let events: EventResponse[] = []
+
   onMount(async () => {
-    const response = await Axios.get("/api/staff/events");
-    if (response.status === 200) {
-      events = response.data.data;
-      console.log(events);
+    const adminPass = localStorage.getItem("adminPass")
+    if (!adminPass) navigate("/")
+    
+    try {
+      const response = await Axios.post("/api/event/getall", {
+        adminPass: adminPass,
+      })
+      if (response.status === 200) {
+        events = response.data.data
+      }
+    } catch (error) {
+      toast.error("รหัสผ่านผิด")
+      navigate("/")
     }
-  });
+  })
 </script>
 
 <div>
   <!-- Header -->
   <div class="text-center">
     <p class="bg-red-600 text-xl text-white py-2">
-      Login as
-      <span class="ml-2 text-gray-100 font-bold"> Admin </span>
+      <span class="ml-2 text-gray-100 font-bold"> Admin Page</span>
     </p>
   </div>
   <button

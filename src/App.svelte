@@ -8,6 +8,8 @@
   import { User } from "./stores/User"
   import { Axios } from "./lib/Axios"
   import Reward from "./pages/Reward.svelte"
+  import Admin from "./pages/admin/Admin.svelte"
+  import AdminCreate from "./pages/admin/AdminCreate.svelte"
   export let url = ""
 
   onMount(async () => {
@@ -29,8 +31,8 @@
     <Route path="/about" component={About} />
     <Route path="/reward" component={Reward} />
     <Route path="/event/:id/:eventName" component={Event} />
-    <!-- <Route path="/admin" component={Admin} />
-    <Route path="/admin/create" component={AdminCreate} /> -->
+    <Route path="/admin" component={Admin} />
+    <Route path="/admin/create" component={AdminCreate} />
     <Route component={NotFound} />
   </main>
 </Router>

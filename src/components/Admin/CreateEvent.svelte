@@ -3,18 +3,28 @@
   import toast, { Toaster } from "svelte-french-toast"
 
   let detail = ""
-  let department_id = 0
+  let department_id: number
+
+  let department = [
+    { id: 1, name: "CPE" },
+    { id: 2, name: "ENV" },
+    { id: 3, name: "TME" },
+  ]
 
   const handleCreateEvent = async () => {
     try {
-      const response = await Axios.post("/api/event/create", {
-        detail: detail,
-        department_id: department_id,
-      })
+      console.log(detail, department_id)
 
-      if (response.status === 200) {
-        toast.success("Success")
-      }
+      // const response = await Axios.post("/api/event/create", {
+      //   detail: detail,
+      //   department_id: department_id,
+      //   type: "",
+      //   adminPass: localStorage.getItem("adminPass"),
+      // })
+
+      // if (response.status === 200) {
+      //   toast.success("Success")
+      // }
     } catch (error) {
       toast.error("Error")
       console.log(error)
@@ -38,7 +48,7 @@
                 >Detail<label>
                   <input
                     type="text"
-                    placeholder="detail"
+                    placeholder="CPE Workshop"
                     class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-red-600"
                     bind:value={detail}
                     required
@@ -50,13 +60,16 @@
             <div class="mt-4">
               <label class="block font-medium"
                 >Department<label>
-                  <input
-                    type="number"
-                    placeholder="department"
-                    class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-red-600"
+                  <select
                     bind:value={department_id}
-                    required
-                  />
+                    class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-red-600"
+                  >
+                    {#each department as depart}
+                      <option value={depart.id}>
+                        {depart.name}
+                      </option>
+                    {/each}
+                  </select>
                 </label></label
               >
             </div>
